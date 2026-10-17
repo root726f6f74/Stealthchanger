@@ -26,7 +26,7 @@ This repository is a backup of `~/printer_data/config` on the printer, pushed ma
 |---|---|---|---|
 | T0 | Orbiter 2.5 | Rapido 2 HF | Standard material, reference tool |
 | T1 | Orbiter 2.5 | Rapido 2 HF | Standard material |
-| T2 | Orbiter 2.0 | Rapido 2 HF | Support |
+| T2 | Orbiter 2.0 | Rapido Plus HF | Support |
 | T3 | Galileo 2 Standalone (9:1) | Dragon HF Voron Edition | Abrasive materials |
 
 Each tool has its own ADXL345, Tap probe, hotend fan with tachometer, input shaper values and XYZ offsets relative to T0.
@@ -83,7 +83,7 @@ Per-tool values (PID, offsets, input shaper) are maintained directly in `tools/T
 | `unload_filament.cfg` | `UNLOAD_FILAMENT` | Tip shaping and unload from the active tool |
 | `hotend_fan_monitor.cfg` | `_HOTEND_FAN_CHECK`, `_HOTEND_FAN_FAULT` | Watches the hotend fan RPM of all tools |
 | `filament_ooze_calibration.cfg` | `OOZE_TEST` | Extrude at a set flow, then retract (to find the retract length) |
-| `dock_tuner.cfg` | `DOCK_TUNER` | Step through pickup/dropoff paths to tune the docks |
+| `dock_tuner.cfg` | `DOCK_TUNER` | Step through pickup/dropoff paths to tune the docks (third party, see Credits) |
 | `git_backup.cfg` | `UPDATE_GIT` | Push the config to this repository |
 
 ### PRINT_START
@@ -213,6 +213,14 @@ PRINT_END ── retract 16 ── T0 ── park ── offsets 0 ── everyt
         │
 UPDATE_GIT (manually, when the config is in a good state)
 ```
+
+---
+
+## Credits
+
+- `dock_tuner.cfg` is from [Contomo/klipper-toolchanger-hard](https://github.com/Contomo/klipper-toolchanger-hard/blob/main/examples/dock%20location/fixed/dock_tuner.cfg)
+- The hotend fan monitor is based on the `fan_tach_monitor` from [Ellis' Print Tuning Guide](https://ellis3dp.com/Print-Tuning-Guide/)
+- Toolchanger base config from [klipper-toolchanger-easy](https://github.com/jwellman80/klipper-toolchanger-easy)
 
 ---
 
