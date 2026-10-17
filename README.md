@@ -18,7 +18,7 @@ This repository is a backup of `~/printer_data/config` on the printer, pushed ma
 | Z | 4 × Z motors (Quad Gantry Level), homing via tool probe (Tap) |
 | Heated bed | 230 V AC |
 | Tool calibration | Sexball probe, evaluated with Axiscope |
-| Chamber | "The Filter" mod with 4 bed fans, chamber temperature sensor |
+| Chamber | ["The Filter"](https://github.com/nateb16/VoronUsers/tree/master/printer_mods/nateb16/THE_FILTER) mod with 4 bed fans, chamber temperature sensor |
 
 ### Toolheads
 
@@ -220,6 +220,7 @@ UPDATE_GIT (manually, when the config is in a good state)
 
 - [StealthChanger](https://github.com/DraftShift/StealthChanger) by [DraftShift Design](https://github.com/DraftShift) - the toolchanger this whole setup is built on
 - [Voron Design](https://vorondesign.com/) - Voron 2.4
+- ["The Filter"](https://github.com/nateb16/VoronUsers/tree/master/printer_mods/nateb16/THE_FILTER) by nateb16 - bed fan / chamber filter mod
 - `dock_tuner.cfg` is from [Contomo/klipper-toolchanger-hard](https://github.com/Contomo/klipper-toolchanger-hard/blob/main/examples/dock%20location/fixed/dock_tuner.cfg)
 - The hotend fan monitor is based on the `fan_tach_monitor` from [Ellis' Print Tuning Guide](https://ellis3dp.com/Print-Tuning-Guide/)
 - Toolchanger base config from [klipper-toolchanger-easy](https://github.com/jwellman80/klipper-toolchanger-easy)
