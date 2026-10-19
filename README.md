@@ -82,6 +82,7 @@ Per-tool values (PID, offsets, input shaper) are maintained directly in `tools/T
 | `load_filament.cfg` | `LOAD_FILAMENT` | Load and purge into the active tool |
 | `unload_filament.cfg` | `UNLOAD_FILAMENT` | Tip shaping and unload from the active tool |
 | `hotend_fan_monitor.cfg` | `_HOTEND_FAN_CHECK`, `_HOTEND_FAN_FAULT` | Watches the hotend fan RPM of all tools |
+| `status_leds.cfg` | `STATUS_LED`, `STATUS_LED_RESET`, wrappers for `G28` / `QUAD_GANTRY_LEVEL` / `BED_MESH_CALIBRATE` | Logo LED shows the printer state, nozzle LEDs always white |
 | `filament_ooze_calibration.cfg` | `OOZE_TEST` | Extrude at a set flow, then retract (to find the retract length) |
 | `dock_tuner.cfg` | `DOCK_TUNER` | Step through pickup/dropoff paths to tune the docks (third party, see Credits) |
 | `git_backup.cfg` | `UPDATE_GIT` | Push the config to this repository |
@@ -155,6 +156,26 @@ Parameters: `TEMP` (default 245 °C), `DISTANCE` (default 150 mm).
 Runs every 3 s for every `heater_fan` (all tools, also docked ones). If a fan should be running, its hotend is above `heater_temp` + 10 °C and the RPM is below `min_rpm` (1500, measured), a counter goes up. After 3 checks in a row the heater of that tool is turned off and a running print is paused. Cold, unused tools are not checked because their fan is off.
 
 Based on the `fan_tach_monitor` from Ellis' Print Tuning Guide, extended to multiple tools.
+
+### Status LEDs
+
+Each tool has 3 LEDs: index 1 is the logo, index 2–3 light the nozzle (always full white).
+
+| Logo color | Meaning |
+|---|---|
+| White, dim | Ready |
+| Blue | Homing |
+| Purple | Quad gantry level |
+| Cyan | Bed mesh |
+| Orange | Heating (bed or tool below target) |
+| Green | Printing |
+| Yellow | Paused |
+| Green, dim | Last print finished |
+| Red | Hotend fan fault on this tool (until next `PRINT_START` or `STATUS_LED_RESET`) |
+| Orange, dim | Nozzle hot (above 50 °C or heater on) - docked tool, or mounted tool while idle |
+| Off | Docked tool, cold |
+
+The mounted tool shows the printer state, docked tools show whether their nozzle is hot. While the Tap probe brings the nozzle to 150 °C before probing, the logo is orange. QGL and bed mesh are shown via thin wrapper macros (`rename_existing`), so they also work when started from the web UI. G28 can not be wrapped (the toolchanger homing calls G28 internally and Klipper does not allow recursive macros), so homing is only shown during `PRINT_START`. Everything else is read from `print_stats` and the heaters by a 3 s loop. Colors are set in one table in `status_leds.cfg`.
 
 ### Tool macros (T0–T3)
 
