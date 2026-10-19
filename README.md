@@ -221,9 +221,12 @@ UPDATE_GIT (manually, when the config is in a good state)
 - [StealthChanger](https://github.com/DraftShift/StealthChanger) by [DraftShift Design](https://github.com/DraftShift) - the toolchanger this whole setup is built on
 - [Voron Design](https://vorondesign.com/) - Voron 2.4
 - ["The Filter"](https://github.com/nateb16/VoronUsers/tree/master/printer_mods/nateb16/THE_FILTER) by nateb16 - bed fan / chamber filter mod
+- Sexball probe for tool offset calibration, see the [StealthChanger docs](https://sdylewski.github.io/StealthChanger/Probes/) - a [Sexbolt](https://mods.vorondesign.com/details/t1DBVlcUBbdEK6habEsVzg) mod with a ball tip
 - `dock_tuner.cfg` is from [Contomo/klipper-toolchanger-hard](https://github.com/Contomo/klipper-toolchanger-hard/blob/main/examples/dock%20location/fixed/dock_tuner.cfg)
 - The hotend fan monitor is based on the `fan_tach_monitor` from [Ellis' Print Tuning Guide](https://ellis3dp.com/Print-Tuning-Guide/)
+- [klipper-toolchanger](https://github.com/viesturz/klipper-toolchanger) by viesturz - the Klipper toolchanger module
 - Toolchanger base config from [klipper-toolchanger-easy](https://github.com/jwellman80/klipper-toolchanger-easy)
+- `spoolman_tracking.cfg` follows the multi-tool Spoolman macros from the [Fluidd docs](https://docs.fluidd.xyz/)
 
 ---
 
