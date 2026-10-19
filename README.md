@@ -79,6 +79,7 @@ Per-tool values (PID, offsets, input shaper) are maintained directly in `tools/T
 |---|---|---|
 | `print_start.cfg` | `PRINT_START`, `_TOOL_FIRST_USE` | Heating, homing, calibration, material Z offset, prime line |
 | `print_end.cfg` | `PRINT_END` | Retract, return to T0, park, reset everything |
+| `cancel_print.cfg` | `_CLIENT_VARIABLE`, `_CANCEL_CLEANUP` | Adapts Mainsail's `CANCEL_PRINT`: 16 mm retract, return to T0, reset like `PRINT_END` |
 | `load_filament.cfg` | `LOAD_FILAMENT` | Load and purge into the active tool |
 | `unload_filament.cfg` | `UNLOAD_FILAMENT` | Tip shaping and unload from the active tool |
 | `hotend_fan_monitor.cfg` | `_HOTEND_FAN_CHECK`, `_HOTEND_FAN_FAULT` | Watches the hotend fan RPM of all tools |
@@ -129,6 +130,14 @@ Why: the tools sit in the dock 16 mm retracted, but the slicer only deretracts w
 6. Reset the G-code offset to 0 (removes the material Z offset).
 7. Turn off heaters, part fans and extruder motors of all tools, turn off the bed.
 8. Clear the skew profile and restore velocity/accel limits from `printer.cfg`.
+
+### CANCEL_PRINT
+
+`CANCEL_PRINT` is the stock Mainsail macro and stays untouched. Its behavior is adjusted through Mainsail's `_CLIENT_VARIABLE`:
+
+1. Retract 16 mm instead of 5 mm (`cancel_retract`), so the tool rests retracted like after a tool change.
+2. Mainsail turns off all heaters and the part fan.
+3. `_CANCEL_CLEANUP` (`user_cancel_macro`): reset feed/flow/pressure advance, switch back to T0 if another tool is mounted, reset the G-code offset (material Z offset), turn off all part fans and extruder motors, clear skew, restore velocity limits.
 
 ### LOAD_FILAMENT
 
@@ -193,6 +202,7 @@ The Rapido 2 HF cools down slowly and oozes in the dock while it is still hot. E
 |---|---|---|
 | Tool change (slicer) | 16 mm before dropoff | — |
 | `PRINT_END` | 16 mm | — |
+| `CANCEL_PRINT` (Mainsail, `cancel_retract`) | 16 mm | — |
 | `LOAD_FILAMENT` | 16 mm at the end | — |
 | `PRINT_START` prime line | — | 16 mm for the first tool |
 | `_TOOL_FIRST_USE` | — | 16 mm on the first use of every other tool |
