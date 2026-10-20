@@ -162,7 +162,7 @@ Parameters: `TEMP` (default 245 °C), `DISTANCE` (default 150 mm).
 
 ### Hotend fan monitor
 
-Runs every 3 s for every `heater_fan` (all tools, also docked ones). If a fan should be running, its hotend is above `heater_temp` + 10 °C and the RPM is below `min_rpm` (1500, measured), a counter goes up. After 3 checks in a row the heater of that tool is turned off and a running print is paused. Cold, unused tools are not checked because their fan is off.
+Runs every 3 s for the hotend fans listed in `variable_fans` (all tools, also docked ones). If a fan should be running, its hotend is above `check_temp` (60 °C = `heater_temp` 50 + 10) and the RPM is below `min_rpm` (1500, measured), a counter goes up. After 3 checks in a row the heater of that tool is turned off and a running print is paused. Cold, unused tools are not checked because their fan is off. The next check is scheduled before the current one runs, so an error in the check can never stop the monitor.
 
 Based on the `fan_tach_monitor` from Ellis' Print Tuning Guide, extended to multiple tools.
 
@@ -184,7 +184,9 @@ Each tool has 3 LEDs: index 1 is the logo, index 2–3 light the nozzle (always 
 | Orange, dim | Nozzle hot (above 50 °C or heater on) - docked tool, or mounted tool while idle |
 | Off | Docked tool, cold |
 
-The mounted tool shows the printer state, docked tools show whether their nozzle is hot. While the Tap probe brings the nozzle to 150 °C before probing, the logo is orange. QGL and bed mesh are shown via thin wrapper macros (`rename_existing`), so they also work when started from the web UI. G28 can not be wrapped (the toolchanger homing calls G28 internally and Klipper does not allow recursive macros), so homing is only shown during `PRINT_START`. Everything else is read from `print_stats` and the heaters by a 3 s loop. Colors are set in one table in `status_leds.cfg`.
+The mounted tool shows the printer state, docked tools show whether their nozzle is hot. While the Tap probe brings the nozzle to 150 °C before probing, the logo is orange. QGL and bed mesh are shown via thin wrapper macros (`rename_existing`), so they also work when started from the web UI. G28 can not be wrapped (the toolchanger homing calls G28 internally and Klipper does not allow recursive macros), so homing is only shown during `PRINT_START`. Everything else is read from `print_stats` and the heaters by a 5 s loop, started 0.5 s offset to the fan monitor so the two never run at the same time. Colors are set in one table in `status_leds.cfg`.
+
+**Performance note:** every `printer[...]` access in a macro deep-copies that object's status. Both loops therefore only touch the objects they need (no `for obj in printer`, no `printer.configfile`) and only write their variables when something changed.
 
 ### Tool macros (T0–T3)
 
