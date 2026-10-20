@@ -176,7 +176,7 @@ Each tool has 3 LEDs: index 1 is the logo, index 2–3 light the nozzle (always 
 | Blue | Homing |
 | Purple | Quad gantry level |
 | Cyan | Bed mesh |
-| Orange | Heating (bed or tool below target) |
+| Orange | Nozzle heating (below target). The bed is not shown on the tools |
 | Green | Printing |
 | Yellow | Paused |
 | Green, dim | Last print finished |
