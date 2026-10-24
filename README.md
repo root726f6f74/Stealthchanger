@@ -11,6 +11,7 @@ This repository is a backup of `~/printer_data/config` on the printer, pushed ma
 | Area | Component |
 |---|---|
 | Frame | Voron 2.4, 300 × 300 mm |
+| Host | Raspberry Pi 4 Model B, CPU temperature shown in the web UI |
 | Mainboard | BTT Octopus (STM32F446) |
 | Toolchanger | StealthChanger, 4 docks |
 | Toolhead boards | LDO Nitehawk 36 StealthChanger Edition (one per tool, USB) |
@@ -19,6 +20,7 @@ This repository is a backup of `~/printer_data/config` on the printer, pushed ma
 | Heated bed | 230 V AC |
 | Tool calibration | Sexball probe, evaluated with Axiscope |
 | Chamber | ["The Filter"](https://github.com/nateb16/VoronUsers/tree/master/printer_mods/nateb16/THE_FILTER) mod with 4 bed fans, chamber temperature sensor |
+| Case light | 2 × [Daylight on a Stick](https://github.com/VoronDesign/Voron-Hardware/tree/master/Daylight) (24 V, 4000 K) on FAN1, dimmable via PWM |
 
 ### Toolheads
 
@@ -58,7 +60,7 @@ printer_data/config/
 │   ├── machine.cfg           # idle_timeout, respond, exclude_object, arcs, skew, save_variables
 │   ├── mcus/                 # BTT Octopus + pin aliases
 │   ├── kinematics/           # CoreXY, velocity and acceleration limits
-│   ├── hardware/             # XY, Z, heated bed, fans, filter, chamber sensor
+│   ├── hardware/             # XY, Z, heated bed, fans, filter, chamber sensor, Pi temperature, case light
 │   ├── software/             # QGL, bed mesh, axis twist, resonance tester, Shake&Tune, Axiscope, Spoolman
 │   └── macros/               # see "Macros" below
 └── toolchanger/
@@ -253,6 +255,7 @@ UPDATE_GIT (manually, when the config is in a good state)
 
 - [StealthChanger](https://github.com/DraftShift/StealthChanger) by [DraftShift Design](https://github.com/DraftShift) - the toolchanger this whole setup is built on
 - [Voron Design](https://vorondesign.com/) - Voron 2.4
+- [Daylight](https://github.com/VoronDesign/Voron-Hardware/tree/master/Daylight) by Blamm (Voron-Hardware) - case light
 - ["The Filter"](https://github.com/nateb16/VoronUsers/tree/master/printer_mods/nateb16/THE_FILTER) by nateb16 - bed fan / chamber filter mod
 - Sexball probe for tool offset calibration, see the [StealthChanger docs](https://sdylewski.github.io/StealthChanger/Probes/) - a [Sexbolt](https://mods.vorondesign.com/details/t1DBVlcUBbdEK6habEsVzg) mod with a ball tip
 - `dock_tuner.cfg` is from [Contomo/klipper-toolchanger-hard](https://github.com/Contomo/klipper-toolchanger-hard/blob/main/examples/dock%20location/fixed/dock_tuner.cfg)
