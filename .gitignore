@@ -8,3 +8,5 @@ axiscope.bak
 *.csv
 *.zip
 ShakeTune_results
+Printer_Config_Backup/toolchanger/.DS_Store
+.DS_Store
